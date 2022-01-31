@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterNameScreen extends StatefulWidget {
   const RegisterNameScreen({ Key? key}) : super(key: key);
@@ -47,10 +48,11 @@ class _RegisterNameScreenState extends State<RegisterNameScreen> {
                     child: SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
                           if (_formKey.currentState!.validate()) {
                             _formKey.currentState!.save();
-                            print(this.username);
+                            SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+                            sharedPreferences.setString("username", this.username!);
                           }
                         },
                         child: const Text('Valider'),
